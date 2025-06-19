@@ -1,0 +1,24 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    height: 64px;
+    border-bottom: 1px solid #dadce0;
+    padding: 8px;
+    color: #5f6368;
+}
+
+.logo-area {
+    display: flex;
+    align-items: center;
+}
+
+.material-symbols-outlined {
+    padding: 10px;
+}
