@@ -11,6 +11,13 @@
     padding: 10px;
 }
 
+.hover:hover {
+    background: #f1f3f4;
+    color: black;
+    border-radius: 50%;
+    cursor: pointer;
+}
+
 nav {
     display: flex;
     justify-content: space-between;
