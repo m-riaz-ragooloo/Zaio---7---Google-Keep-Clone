@@ -210,3 +210,39 @@ input:focus {
     color: black;
     font-size: 1.1rem;
 }
+
+/* all notes */
+.notes {
+    display: flex;
+    justify-content: center;
+}
+
+.note {
+    background-color: white;
+    width: 240px;
+    height: 114px;
+    border: 1px solid #e0e1e0;
+    border-radius: 8px;
+    padding: 15px;
+    margin: 10px;
+}
+
+.note .note-title2 {
+    width: 100%;
+}
+ 
+.note .note-text2 {
+    width: 100%;
+    margin-top: 10px;
+}
+
+.note-footer {
+    display: flex;
+    justify-content: center;
+}
+
+.note-footer .small-icon {
+    font-size: 1.1rem;
+    color: #5f6368;
+    margin-top: 10px;
+} 
