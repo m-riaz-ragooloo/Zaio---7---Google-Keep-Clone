@@ -101,6 +101,7 @@ input:focus {
 /* sidebar */
 .sidebar {
     position: fixed;
+    top: 64px;
     left: 0;
     display: flex;
     flex-direction: column;
