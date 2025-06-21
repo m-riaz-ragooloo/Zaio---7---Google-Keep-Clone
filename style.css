@@ -206,7 +206,7 @@ input:focus {
     font-size: 1rem;
 }
 
-.small-icon {
+.icons-tooltip .small-icon {
     color: black;
-    size: 1.1rem;
+    font-size: 1.1rem;
 }
