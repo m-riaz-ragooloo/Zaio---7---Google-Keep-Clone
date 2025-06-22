@@ -12,8 +12,9 @@ class App {
 
         this.$activeForm = document.querySelector(".active-form");      //$ is a selector in JS
         this.$inactiveForm = document.querySelector(".inactive-form");
-        this.$noteTitle = document.querySelector(".note-title");
-        this.$noteText = document.querySelector(".note-text");
+        this.$noteTitle = document.querySelector("#note-title");
+        this.$noteText = document.querySelector("#note-text");
+
 
         this.addEventListeners();
     }
@@ -29,10 +30,14 @@ class App {
         const isInactiveFormClickedOn = this.$inactiveForm.contains(event.target);
 
         if(isInactiveFormClickedOn) {
-            this.$inactiveForm.style.display = "none";
-            this.$activeForm.style.display = "block";
-            this.$noteText.focus();
+            this.openActiveForm();
         }
+    }
+    
+    openActiveForm() {
+        this.$inactiveForm.style.display = "none";
+        this.$activeForm.style.display = "block";
+        this.$noteText.focus();
     }
 
     addNote(id, {title, text}) {                        //declaring method
