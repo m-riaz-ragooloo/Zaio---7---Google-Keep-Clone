@@ -183,6 +183,9 @@ input:focus {
     padding-left: 10px;
 }
 
+.active-form {
+    display: none;
+}
 
 .active-form form{
     display: flex;
