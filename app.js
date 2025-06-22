@@ -28,7 +28,8 @@ class App {
     handleFormClick(event) {
         const isActiveFormClickedOn = this.$activeForm.contains(event.target);
         const isInactiveFormClickedOn = this.$inactiveForm.contains(event.target);
-
+        const title = this.$noteTitle.value;
+        const text = this.$noteText.value;
         if(isInactiveFormClickedOn) {
             this.openActiveForm();
         }
@@ -48,8 +49,8 @@ class App {
         this.$activeForm.style.display = "none";
     }
 
-    addNote(id, {title, text}) {                        //declaring method
-        const newNote = new Note(id, title, text);      //creating variable and declaring parameters
+    addNote({title, text}) {                        //declaring method
+        const newNote = new Note(cuid(), title, text);      //creating variable and declaring parameters
         this.notes = [...this.notes, newNote]           //creating pathway to array storage
     }
 
