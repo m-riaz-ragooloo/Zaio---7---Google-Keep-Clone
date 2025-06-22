@@ -11,20 +11,28 @@ class App {
         this.notes = [];                                //creating the array to store varaibles
 
         this.$activeForm = document.querySelector(".active-form");      //$ is a selector in JS
-        this.$activeForm.style.display = "block";
-        console.log(this.$activeForm);
+        this.$inactiveForm = document.querySelector(".inactive-form");
+        this.$noteTitle = document.querySelector(".note-title");
+        this.$noteText = document.querySelector(".note-text");
 
         this.addEventListeners();
     }
 
     addEventListeners() {
-        document.body.addEventListener("click",(event) => {
-            this.handleFormClick();
+        document.body.addEventListener("click", (event) => {
+            this.handleFormClick(event);
         })
     }
 
     handleFormClick(event) {
-        console.log(event);
+        const isActiveFormClickedOn = this.$activeForm.contains(event.target);
+        const isInactiveFormClickedOn = this.$inactiveForm.contains(event.target);
+
+        if(isInactiveFormClickedOn) {
+            this.$inactiveForm.style.display = "none";
+            this.$activeForm.style.display = "block";
+            this.$noteText.focus();
+        }
     }
 
     addNote(id, {title, text}) {                        //declaring method
