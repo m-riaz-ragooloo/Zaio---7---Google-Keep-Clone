@@ -8,7 +8,7 @@ class Note {                                            //creating the class
 
 class App {
     constructor() {
-        this.notes = [new Note(1, "Test title", "Test text")];                                //creating the array to store varaibles
+        this.notes = [new Note("abc1", "Test title", "Test text")];     //creating the array to store varaibles
 
         this.$activeForm = document.querySelector(".active-form");      //$ is a selector in JS
         this.$inactiveForm = document.querySelector(".inactive-form");
@@ -80,11 +80,30 @@ class App {
         });
     }
 
+    handleMouseOverNote(element) {
+        const $note = document.querySelector("#"+element.id);
+
+        const $checkNote = $note.querySelector(".tick");
+        const $noteFooter = $note.querySelector(".note-footer");
+        $checkNote.style.visibility = "visible";
+        $noteFooter.style.visibility = "visible";
+        console.log($checkNote);
+    }
+
+    handleOnMouseOut(element) {
+         const $note = document.querySelector("#"+element.id);
+
+        const $checkNote = $note.querySelector(".tick");
+        const $noteFooter = $note.querySelector(".note-footer");
+        $checkNote.style.visibility = "hidden";
+        $noteFooter.style.visibility = "hidden";
+    }
+
     displayNote() {
         this.$notes.innerHTML = this.notes.map(
             (note) => 
         `
-        <div class="note" id="${note.id}">
+        <div class="note" id="${note.id}" onmouseover="app.handleMouseOverNote(this)" onmouseout="app.handleOnMouseOut(this)">
             <span class="material-symbols-outlined hover small-icon tick">check_circle</span>
             <div class="note-title2">${note.title}</div>
             <div class="note-text2">${note.text}</div>
