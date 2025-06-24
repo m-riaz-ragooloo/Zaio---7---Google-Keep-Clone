@@ -8,21 +8,29 @@ class Note {                                            //creating the class
 
 class App {
     constructor() {
-        this.notes = [];                                //creating the array to store varaibles
+        this.notes = [new Note(1, "Test title", "Test text")];                                //creating the array to store varaibles
 
         this.$activeForm = document.querySelector(".active-form");      //$ is a selector in JS
         this.$inactiveForm = document.querySelector(".inactive-form");
         this.$noteTitle = document.querySelector("#note-title");
         this.$noteText = document.querySelector("#note-text");
         this.$notes = document.querySelector(".notes");
-
+        this.$form = document.querySelector("#form");
 
         this.addEventListeners();
+        this.displayNote();
     }
 
     addEventListeners() {
         document.body.addEventListener("click", (event) => {
             this.handleFormClick(event);
+        })
+        this.$form.addEventListener("submit", (event) => {
+            event.preventDefault();
+            const title = this.$noteTitle.value;
+            const text = this.$noteText.value;
+            this.addNote({ title, text });
+            this.closeActiveForm();
         })
     }
 
@@ -76,7 +84,7 @@ class App {
         this.$notes.innerHTML = this.notes.map(
             (note) => 
         `
-        <div class="note">
+        <div class="note" id="${note.id}">
             <span class="material-symbols-outlined hover small-icon tick">check_circle</span>
             <div class="note-title2">${note.title}</div>
             <div class="note-text2">${note.text}</div>
@@ -109,7 +117,7 @@ class App {
             </div>
         </div>
         `
-        ).join("");
+        ).join("");     //concatenates the elements of an array into a tring , using the specified separator
     }
     
     deleteNote(id) {
