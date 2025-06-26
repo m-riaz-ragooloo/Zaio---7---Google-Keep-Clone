@@ -16,6 +16,7 @@ class App {
         this.$noteText = document.querySelector("#note-text");
         this.$notes = document.querySelector(".notes");
         this.$form = document.querySelector("#form");
+        this.$modal = document.querySelector(".modal");
 
         this.addEventListeners();
         this.displayNote();
@@ -24,7 +25,9 @@ class App {
     addEventListeners() {
         document.body.addEventListener("click", (event) => {
             this.handleFormClick(event);
+            this.openModal(event);
         })
+
         this.$form.addEventListener("submit", (event) => {
             event.preventDefault();
             const title = this.$noteTitle.value;
@@ -42,8 +45,7 @@ class App {
 
         if(isInactiveFormClickedOn) {
             this.openActiveForm();
-        }
-        else if(!isInactiveFormClickedOn && !isActiveFormClickedOn) {
+        }else if(!isInactiveFormClickedOn && !isActiveFormClickedOn) {
             this.addNote({ title, text });
             this.closeActiveForm();
         }
@@ -62,7 +64,13 @@ class App {
         this.$noteTitle.value = "";
     }
 
-    addNote({title, text}) {                        //declaring method
+    openModal(event) {
+        if(event.target.closest(".note")) {
+            this.$modal.classList.add("open-modal");
+        };
+    }
+
+    addNote( {title, text} ) {
         if(text != "") {
             const newNote = new Note(cuid(), title, text);      //creating variable and declaring parameters
             this.notes = [...this.notes, newNote]           //creating pathway to array storage
@@ -102,40 +110,40 @@ class App {
     displayNote() {
         this.$notes.innerHTML = this.notes.map(
             (note) => 
-        `
-        <div class="note" id="${note.id}" onmouseover="app.handleMouseOverNote(this)" onmouseout="app.handleOnMouseOut(this)">
-            <span class="material-symbols-outlined hover small-icon tick">check_circle</span>
-            <div class="note-title2">${note.title}</div>
-            <div class="note-text2">${note.text}</div>
-            <div class="note-footer">
-                <div class="tooltip">
-                        <span class="material-symbols-outlined hover small-icon">palette</span>
-                        <span class="tooltip-text">Background options</span>
-                    </div>
-                    <div class="tooltip">
-                        <span class="material-symbols-outlined hover small-icon">add_alert</span>
-                        <span class="tooltip-text">Remind me</span>
-                    </div>
-                    <div class="tooltip">
-                        <span class="material-symbols-outlined hover small-icon">person_add</span>
-                        <span class="tooltip-text">Collaborator</span>
-                    </div>
-                    <div class="tooltip">
-                        <span class="material-symbols-outlined hover small-icon">image</span>
-                        <span class="tooltip-text">Add image</span>
-                    </div>
-                    <div class="tooltip">
-                        <span class="material-symbols-outlined hover small-icon">archive</span>
-                        <span class="tooltip-text">Archive</span>
-                    </div>
-                    <div class="tooltip">
-                        <span class="material-symbols-outlined hover small-icon">more_vert</span>
-                        <span class="tooltip-text">More</span>
+                `
+                <div class="note" id="${note.id}" onmouseover="app.handleMouseOverNote(this)" onmouseout="app.handleOnMouseOut(this)">
+                    <span class="material-symbols-outlined hover small-icon tick">check_circle</span>
+                    <div class="note-title2">${note.title}</div>
+                    <div class="note-text2">${note.text}</div>
+                    <div class="note-footer">
+                        <div class="tooltip">
+                                <span class="material-symbols-outlined hover small-icon">palette</span>
+                                <span class="tooltip-text">Background options</span>
+                            </div>
+                            <div class="tooltip">
+                                <span class="material-symbols-outlined hover small-icon">add_alert</span>
+                                <span class="tooltip-text">Remind me</span>
+                            </div>
+                            <div class="tooltip">
+                                <span class="material-symbols-outlined hover small-icon">person_add</span>
+                                <span class="tooltip-text">Collaborator</span>
+                            </div>
+                            <div class="tooltip">
+                                <span class="material-symbols-outlined hover small-icon">image</span>
+                                <span class="tooltip-text">Add image</span>
+                            </div>
+                            <div class="tooltip">
+                                <span class="material-symbols-outlined hover small-icon">archive</span>
+                                <span class="tooltip-text">Archive</span>
+                            </div>
+                            <div class="tooltip">
+                                <span class="material-symbols-outlined hover small-icon">more_vert</span>
+                                <span class="tooltip-text">More</span>
+                            </div>
+                        </div>
                     </div>
                 </div>
-            </div>
-        </div>
-        `
+                `
         ).join("");     //concatenates the elements of an array into a tring , using the specified separator
     }
     

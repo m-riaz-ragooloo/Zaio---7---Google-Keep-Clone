@@ -186,15 +186,18 @@ input:focus {
     display: none;
 }
 
-.active-form form{
+.form-actions {
+    display: flex;
+}
+
+.form {
     display: flex;
     flex-direction: column;
     width: 100%;
     padding: 10px;
-
 }
 
-.active-form form .icons {
+.form .icons {
     display: flex;
     justify-content: space-between;
     width: 100%;
