@@ -17,6 +17,7 @@ class App {
         this.$notes = document.querySelector(".notes");
         this.$form = document.querySelector("#form");
         this.$modal = document.querySelector(".modal");
+        this.$modalForm = document.querySelector("#modal-form");
 
         this.addEventListeners();
         this.displayNote();
@@ -25,6 +26,7 @@ class App {
     addEventListeners() {
         document.body.addEventListener("click", (event) => {
             this.handleFormClick(event);
+            this.closeModal(event);
             this.openModal(event);
         })
 
@@ -68,6 +70,13 @@ class App {
         if(event.target.closest(".note")) {
             this.$modal.classList.add("open-modal");
         };
+    }
+
+    closeModal(event) {
+        const isModalFormClickedOn = this.$modalForm.contains(event.target);
+        if(!isModalFormClickedOn) {
+            this.$modal.classList.remove("open-modal");
+        }
     }
 
     addNote( {title, text} ) {
