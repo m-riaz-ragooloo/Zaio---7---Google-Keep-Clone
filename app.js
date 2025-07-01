@@ -18,6 +18,8 @@ class App {
         this.$form = document.querySelector("#form");
         this.$modal = document.querySelector(".modal");
         this.$modalForm = document.querySelector("#modal-form");
+        this.$modalTitle = document.querySelector("#modal-title");
+        this.$modalText = document.querySelector("#modal-text");
 
         this.addEventListeners();
         this.displayNote();
@@ -67,14 +69,17 @@ class App {
     }
 
     openModal(event) {
-        if(event.target.closest(".note")) {
+        const $selectedNote = event.target.closest(".note")
+        if($selectedNote) {
+            this.$modalTitle.value = $selectedNote.children[1].innerHTML;       //accessing html title
+            this.$modalText.value = $selectedNote.children[2].innerHTML;        //accessing html text
             this.$modal.classList.add("open-modal");
-        };
+        }
     }
 
     closeModal(event) {
         const isModalFormClickedOn = this.$modalForm.contains(event.target);
-        if(!isModalFormClickedOn) {
+        if(!isModalFormClickedOn && this.$modal.classList.contains("open-modal")) {
             this.$modal.classList.remove("open-modal");
         }
     }
