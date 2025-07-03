@@ -11,8 +11,6 @@ class App {
         //localStorage.setItem("test", JSON.stringify(["123"]));
         //console.log(JSON.parse(localStorage.getItem("test")));
         this.notes = JSON.parse(localStorage.getItem("notes")) || [];
-        console.log(this.notes);
-        this.notes = [new Note("abc1", "Test title", "Test text")];     //creating the array to store varaibles
         this.selectedNoteId = "";
         this.miniSidebar = true;
 
@@ -27,7 +25,7 @@ class App {
         this.$modalForm = document.querySelector("#modal-form");
         this.$modalTitle = document.querySelector("#modal-title");
         this.$modalText = document.querySelector("#modal-text");
-        this.$closeModalForm = document.querySelector("#modal-btn");
+        this.$closeModalBtn = document.querySelector("#modal-btn");
         this.$sidebar = document.querySelector(".sidebar");
         this.$sidebarActiveItem = document.querySelector(".active-item");
 
@@ -63,9 +61,9 @@ class App {
         const title = this.$noteTitle.value;
         const text = this.$noteText.value;
 
-        if(isInactiveFormClickedOn) {
+        if (isInactiveFormClickedOn) {
             this.openActiveForm();
-        }else if(!isInactiveFormClickedOn && !isActiveFormClickedOn || !isInactiveFormClickedOn && isActiveFormButtonClickedOn) {      //!isActiveFormClickedOn stops form from closing on every click before user is done
+        } else if (!isInactiveFormClickedOn && !isActiveFormClickedOn || !isInactiveFormClickedOn && isActiveFormButtonClickedOn) {      //!isActiveFormClickedOn stops form from closing on every click before user is done
             this.addNote({ title, text });
             this.closeActiveForm();
         }
@@ -98,9 +96,9 @@ class App {
 
     closeModal(event) {
         const isModalFormClickedOn = this.$modalForm.contains(event.target);
-        const isCloseModalBtnClickedOn = this.$closeModalForm.contains(event.target);
-        // console.log(isCloseModalBtnClickedOn);
+        const isCloseModalBtnClickedOn = this.$closeModalBtn.contains(event.target);
         if((!isModalFormClickedOn || isCloseModalBtnClickedOn) && this.$modal.classList.contains("open-modal")) {
+            event.preventDefault();
             this.editNote(this.selectedNoteId, { title: this.$modalTitle.value, text: this.$modalText.value });
             this.$modal.classList.remove("open-modal");
         }
@@ -109,7 +107,7 @@ class App {
     handleArchiving(event) {
         const $selectedNote = event.target.closest(".note");
         if($selectedNote && event.target.closest(".archive")) {
-            this.selectedNoteid = $selectedNote.id;
+            this.selectedNoteId = $selectedNote.id;
             this.deleteNote(this.selectedNoteId);
         } else {
             return;
@@ -136,18 +134,15 @@ class App {
     }
 
     handleMouseOverNote(element) {
-        const $note = document.querySelector("#"+element.id);
-
+        const $note = document.querySelector("#" + element.id);
         const $checkNote = $note.querySelector(".tick");
         const $noteFooter = $note.querySelector(".note-footer");
         $checkNote.style.visibility = "visible";
         $noteFooter.style.visibility = "visible";
-        console.log($checkNote);
     }
 
     handleOnMouseOut(element) {
-        const $note = document.querySelector("#"+element.id);
-
+        const $note = document.querySelector("#" + element.id);
         const $checkNote = $note.querySelector(".tick");
         const $noteFooter = $note.querySelector(".note-footer");
         $checkNote.style.visibility = "hidden";
@@ -158,6 +153,7 @@ class App {
         if(this.miniSidebar) {
             this.$sidebar.style.width = "250px";
             this.$sidebar.classList.add("sidebar-hover");
+            this.$sidebarActiveItem.classList.add("sidebar-active-item");
             this.miniSidebar = false;
         } else {
             this.$sidebar.style.width = "80px";
@@ -167,8 +163,8 @@ class App {
         }
     }
 
-    savingNotes() {
-        localStorage.setItem("test", JSON.stringify(this.notes));
+    saveNotes() {
+        localStorage.setItem("notes", JSON.stringify(this.notes));
     }
 
     render() {
@@ -217,7 +213,7 @@ class App {
     }
     
     deleteNote(id) {
-        this.notes = this.notes.filter(note => note.id != id);
+        this.notes = this.notes.filter((note) => note.id != id);
         this.render();
     }
 }
