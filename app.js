@@ -17,6 +17,7 @@ class App {
         this.miniSidebar = true;
 
         this.$activeForm = document.querySelector(".active-form");      //$ is a selector in JS
+        this.$activeFormCloseBtn = document.querySelector("#active-form-close-btn");
         this.$inactiveForm = document.querySelector(".inactive-form");
         this.$noteTitle = document.querySelector("#note-title");
         this.$noteText = document.querySelector("#note-text");
@@ -58,12 +59,13 @@ class App {
     handleFormClick(event) {
         const isActiveFormClickedOn = this.$activeForm.contains(event.target);
         const isInactiveFormClickedOn = this.$inactiveForm.contains(event.target);
+        const isActiveFormButtonClickedOn = this.$activeFormCloseBtn.contains(event.target);
         const title = this.$noteTitle.value;
         const text = this.$noteText.value;
 
         if(isInactiveFormClickedOn) {
             this.openActiveForm();
-        }else if(!isInactiveFormClickedOn && !isActiveFormClickedOn) {
+        }else if(!isInactiveFormClickedOn && !isActiveFormClickedOn || !isInactiveFormClickedOn && isActiveFormButtonClickedOn) {      //!isActiveFormClickedOn stops form from closing on every click before user is done
             this.addNote({ title, text });
             this.closeActiveForm();
         }
