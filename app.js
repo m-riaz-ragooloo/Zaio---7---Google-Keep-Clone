@@ -8,6 +8,10 @@ class Note {                                            //creating the class
 
 class App {
     constructor() {
+        //localStorage.setItem("test", JSON.stringify(["123"]));
+        //console.log(JSON.parse(localStorage.getItem("test")));
+        this.notes = JSON.parse(localStorage.getItem("notes")) || [];
+        console.log(this.notes);
         this.notes = [new Note("abc1", "Test title", "Test text")];     //creating the array to store varaibles
         this.selectedNoteId = "";
         this.miniSidebar = true;
@@ -114,7 +118,7 @@ class App {
         if(text != "") {
             const newNote = new Note(cuid(), title, text);      //creating variable and declaring parameters
             this.notes = [...this.notes, newNote];           //creating pathway to array storage
-            this.displayNote();
+            this.render();
         }
     }
 
@@ -126,7 +130,7 @@ class App {
             }
             return note;
         });
-        this.displayNote();
+        this.render();
     }
 
     handleMouseOverNote(element) {
@@ -159,6 +163,15 @@ class App {
             this.$sidebarActiveItem.classList.remove("sidebar-active-item");
             this.miniSidebar = true;
         }
+    }
+
+    savingNotes() {
+        localStorage.setItem("test", JSON.stringify(this.notes));
+    }
+
+    render() {
+        this.saveNotes();
+        this.displayNote();
     }
 
     displayNote() {
@@ -203,7 +216,7 @@ class App {
     
     deleteNote(id) {
         this.notes = this.notes.filter(note => note.id != id);
-        this.displayNote();
+        this.render();
     }
 }
 
